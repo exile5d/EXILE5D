@@ -7,17 +7,9 @@
     <script type="module" crossorigin="" src="./Exile5DCOMPLETE_files/index-Cb0bb1Eb.js"></script>
     <link rel="stylesheet" crossorigin="" href="./Exile5DCOMPLETE_files/index-Dn_jrFde.css">
     <style>
-      /* Flicker animation */
-      @keyframes flicker {
-        0%, 100% { opacity: 0.8; }
-        50% { opacity: 0.3; }
-      }
       .flicker-text {
         display: inline-block;
         transition: opacity 0.1s;
-      }
-      .flicker-text.changing {
-        animation: flicker 0.1s infinite;
       }
     </style>
   </head>
@@ -71,7 +63,7 @@
   </footer>
 
   <!-- Rotating text at the very bottom -->
-  <div style="text-align: center; padding: 2rem 2rem 4rem; background: #000; color: #fff;">
+  <div style="text-align: center; padding: 4rem 2rem; background: #000; color: #fff;">
     <span id="rotatingText" class="flicker-text" style="font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Courier New', monospace; opacity: 0.8; text-shadow: rgba(142, 0, 0, 0.6) 0px 0px 30px, rgba(142, 0, 0, 0.4) 0px 0px 60px;">Into The Void</span>
   </div>
 
@@ -88,16 +80,14 @@
     
     // Rotate at same pace as line 2 (every 2 seconds)
     setInterval(() => {
-      // Add flicker effect during change
-      textElement.classList.add('changing');
-      
+      // Flicker effect
+      textElement.style.opacity = '0.3';
       setTimeout(() => {
         currentIndex = (currentIndex + 1) % phrases.length;
         textElement.textContent = phrases[currentIndex];
-        textElement.classList.remove('changing');
-      }, 100); // Quick flicker duration
-      
-    }, 2000); // Same 2-second pace as line 2
+        textElement.style.opacity = '0.8';
+      }, 100);
+    }, 2000);
   </script>
 
     </body>
