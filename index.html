@@ -7,37 +7,17 @@
     <script type="module" crossorigin="" src="./Exile5DCOMPLETE_files/index-Cb0bb1Eb.js"></script>
     <link rel="stylesheet" crossorigin="" href="./Exile5DCOMPLETE_files/index-Dn_jrFde.css">
     <style>
-      /* Flicker animation for bottom text */
+      /* Flicker animation */
       @keyframes flicker {
-        0%, 100% { opacity: 1; }
+        0%, 100% { opacity: 0.8; }
         50% { opacity: 0.3; }
       }
       .flicker-text {
+        display: inline-block;
+        transition: opacity 0.1s;
+      }
+      .flicker-text.changing {
         animation: flicker 0.1s infinite;
-      }
-      
-      /* Ensure sections have proper styling */
-      section h2 {
-        font-family: 'Courier New', monospace;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-weight: 300;
-      }
-      
-      section p, section div {
-        text-transform: lowercase;
-        font-weight: 300;
-      }
-      
-      /* Keep grid items styled properly */
-      .grid-item h3 {
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-family: 'Courier New', monospace;
-      }
-      
-      .grid-item p {
-        text-transform: lowercase;
       }
     </style>
   </head>
@@ -86,14 +66,14 @@
     <p style="font-size: 1.25rem; line-height: 1.6; opacity: 0.8; font-weight: 300; text-transform: lowercase;">ready to step into the fifth dimension? let's create something extraordinary.</p>
   </section>
 
-  <!-- Bottom flickering text (moved from hero) -->
-  <div style="text-align: center; padding: 4rem 2rem 2rem; background: #000; color: #fff;">
-    <span id="rotatingText" style="font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Courier New', monospace; opacity: 0.8; text-shadow: rgba(142, 0, 0, 0.6) 0px 0px 30px, rgba(142, 0, 0, 0.4) 0px 0px 60px;">Into The Void</span>
-  </div>
-
   <footer style="text-align: center; padding: 2rem; background: #000; color: #fff; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; opacity: 0.5; letter-spacing: 0.1em; text-transform: uppercase;">
     <p>© 2026 Exile5D. From the 5th dimension.</p>
   </footer>
+
+  <!-- Rotating text at the very bottom -->
+  <div style="text-align: center; padding: 2rem 2rem 4rem; background: #000; color: #fff;">
+    <span id="rotatingText" class="flicker-text" style="font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Courier New', monospace; opacity: 0.8; text-shadow: rgba(142, 0, 0, 0.6) 0px 0px 30px, rgba(142, 0, 0, 0.4) 0px 0px 60px;">Into The Void</span>
+  </div>
 
   <script>
     const phrases = [
@@ -106,15 +86,18 @@
     let currentIndex = 0;
     const textElement = document.getElementById('rotatingText');
     
+    // Rotate at same pace as line 2 (every 2 seconds)
     setInterval(() => {
-      // Quick flicker effect
-      textElement.style.opacity = '0.3';
+      // Add flicker effect during change
+      textElement.classList.add('changing');
+      
       setTimeout(() => {
         currentIndex = (currentIndex + 1) % phrases.length;
         textElement.textContent = phrases[currentIndex];
-        textElement.style.opacity = '0.8';
-      }, 100);
-    }, 2000); // Changes every 2 seconds
+        textElement.classList.remove('changing');
+      }, 100); // Quick flicker duration
+      
+    }, 2000); // Same 2-second pace as line 2
   </script>
 
     </body>
