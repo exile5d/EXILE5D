@@ -4,119 +4,367 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exile5D | Creative Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --primary: #0a0a0a;
+            --accent: #6366f1;
+            --text: #ffffff;
+            --muted: #a1a1aa;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0a0a0a;
-            color: #fff;
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
             line-height: 1.6;
         }
-        
+
+        /* Animated background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-        
+
         .logo {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            color: #fff;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
+
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
         }
-        
+
         .nav-links a {
-            color: #fff;
+            color: var(--muted);
             text-decoration: none;
             font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
         .nav-links a:hover {
-            color: #888;
+            color: var(--text);
         }
-        
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 0 5%;
-            margin-top: -80px;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 1rem;
-            line-height: 1;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #6366f1 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 8s ease infinite;
+            background-size: 200% 200%;
         }
-        
-        .hero .subtitle {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            color: #666;
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
             font-weight: 300;
-            letter-spacing: 4px;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
-        
+
         .tagline {
-            margin-top: 2rem;
-            font-size: 1.1rem;
-            color: #888;
+            font-size: 1.25rem;
+            color: var(--muted);
             font-style: italic;
+            letter-spacing: 0.1em;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            position: relative;
+            display: inline-block;
         }
-        
-        .section {
-            padding: 5rem 5%;
+
+        .tagline::before,
+        .tagline::after {
+            content: '—';
+            margin: 0 1rem;
+            opacity: 0.3;
+        }
+
+        /* Floating elements animation */
+        .floating {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .floating:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .floating:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: #ec4899;
+            top: 60%;
+            right: -5%;
+            animation-delay: -5s;
+        }
+
+        .floating:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            background: #8b5cf6;
+            bottom: 10%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 8rem 5%;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
-        
-        .section h2 {
-            font-size: 2.5rem;
+
+        section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
             margin-bottom: 2rem;
-            color: #fff;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
         }
-        
-        .section p {
-            color: #aaa;
-            font-size: 1.1rem;
+
+        section.visible h2 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section p {
+            color: var(--muted);
+            font-size: 1.25rem;
             line-height: 1.8;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.2s;
         }
-        
+
+        section.visible p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Work Grid */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .work-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        section.visible .work-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .work-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .work-item h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .work-item p {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 5%;
-            color: #555;
-            border-top: 1px solid #222;
+            padding: 4rem 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
 <body>
+    <!-- Floating background elements -->
+    <div class="floating"></div>
+    <div class="floating"></div>
+    <div class="floating"></div>
+
     <nav>
         <div class="logo">Exile5D</div>
         <ul class="nav-links">
@@ -128,28 +376,78 @@
     </nav>
     
     <section class="hero" id="home">
-        <h1>CREATIVE</h1>
-        <div class="subtitle">Solutions</div>
-        <div class="tagline">From the 5th dimension</div>
+        <div class="hero-content">
+            <h1>CREATIVE</h1>
+            <div class="subtitle">Solutions</div>
+            <div class="tagline">From the 5th dimension</div>
+        </div>
     </section>
     
-    <section class="section" id="about">
+    <section id="about">
         <h2>About</h2>
-        <p>We are Exile5D, a creative agency bringing ideas from the fifth dimension into reality. Our work transcends traditional boundaries.</p>
+        <p>We are Exile5D, a creative agency transcending traditional boundaries. Our work bridges the gap between imagination and reality, bringing concepts from the fifth dimension into tangible existence.</p>
     </section>
     
-    <section class="section" id="work">
-        <h2>Work</h2>
-        <p>Creative solutions for forward-thinking brands.</p>
+    <section id="work">
+        <h2>Selected Work</h2>
+        <p>Forward-thinking brands choose us for boundary-pushing creative solutions.</p>
+        <div class="work-grid">
+            <div class="work-item">
+                <h3>Brand Identity</h3>
+                <p>Complete visual systems for the modern era</p>
+            </div>
+            <div class="work-item">
+                <h3>Digital Experiences</h3>
+                <p>Immersive web and interactive installations</p>
+            </div>
+            <div class="work-item">
+                <h3>Motion Design</h3>
+                <p>Kinetic storytelling that captivates</p>
+            </div>
+        </div>
     </section>
     
-    <section class="section" id="contact">
+    <section id="contact">
         <h2>Contact</h2>
-        <p>Get in touch to start your next project.</p>
+        <p>Ready to transcend? Let's create something extraordinary together.</p>
     </section>
     
     <footer>
         <p>&copy; 2026 Exile5D. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Parallax effect for floating elements
+        document.addEventListener('mousemove', (e) => {
+            const floaters = document.querySelectorAll('.floating');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            floaters.forEach((floater, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (0.5 - x) * speed;
+                const yOffset = (0.5 - y) * speed;
+                floater.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+    </script>
 </body>
 </html>
